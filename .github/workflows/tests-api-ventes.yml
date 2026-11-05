@@ -12,4 +12,4 @@ jobs:
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
       - name: Run API tests
         run: |
-          postman collection run "postman/collections/Showroomprivé - API Ventes" -e "postman/envionments/New Environment.environment.yaml"
+          postman collection run "postman/collections/Showroomprivé - API Ventes" -e "postman/environments/New Environment.environment.yaml"
