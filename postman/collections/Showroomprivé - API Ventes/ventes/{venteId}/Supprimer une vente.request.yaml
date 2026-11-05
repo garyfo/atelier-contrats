@@ -1,0 +1,30 @@
+$kind: http-request
+description: Supprime une vente qui n'est pas encore ouverte.
+url: "{{baseUrl}}/ventes/:venteId"
+method: DELETE
+headers:
+  Accept: application/json
+pathVariables:
+  - key: venteId
+    value: VTE-20261112-0042
+    disabled: false
+    description: Identifiant de la vente.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "example": "VTE-20261112-0042"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+settings: {}
+examples: ./.resources/Supprimer une vente.resources/examples
+order: 3000

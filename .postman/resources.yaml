@@ -1,0 +1,14 @@
+workspace:
+  id: c26378b1-73b6-44e2-8b1c-bcab260ffbc0
+localResources:
+  specs:
+    - ../contrats/ventes-asyncapi.yaml
+    - ../contrats/ventes-openapi.yaml
+cloudResources:
+  collections:
+    ../postman/collections/Showroomprivé - API Ventes: 56012510-9a6f17d1-a868-4137-8950-47820491d92d
+  specs:
+    ../contrats/ventes-asyncapi.yaml: 0a5eaf39-8811-4d50-b5a3-d93713737067
+    ../contrats/ventes-openapi.yaml: 14858fc1-9b63-4814-944d-af4152bb9d97
+  environments:
+    ../postman/environments/New Environment.environment.yaml: 56012510-2f213ea8-eb23-40c1-9e29-59ca686d0656

@@ -1,0 +1,47 @@
+$kind: http-example
+name: Jeton absent ou invalide.
+request:
+  url: "{{baseUrl}}/ventes/:venteId"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: venteId
+      value: VTE-20261112-0042
+      disabled: false
+      description: Identifiant de la vente.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "NON_AUTHENTIFIE",
+        "message": "Jeton d'accès absent ou expiré."
+      }
+    $type: |-
+      {
+        "description": "Erreur renvoyée par l'API.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Code d'erreur stable."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message lisible."
+          }
+        }
+      }
+order: 2000

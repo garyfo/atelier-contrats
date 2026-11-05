@@ -1,0 +1,55 @@
+$kind: http-example
+name: Aucune vente avec cet identifiant.
+request:
+  url: "{{baseUrl}}/ventes/:venteId"
+  method: PUT
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: venteId
+      value: VTE-20261112-0042
+      disabled: false
+      description: Identifiant de la vente.
+  body:
+    type: json
+    content: |-
+      {
+        "titre": "string",
+        "statut": "programmee",
+        "dateOuverture": "2026-11-12T07:00:00Z",
+        "dateFermeture": "2026-11-17T22:00:00Z"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "VENTE_INTROUVABLE",
+        "message": "Aucune vente ne correspond à l'identifiant VTE-20261112-0042."
+      }
+    $type: |-
+      {
+        "description": "Erreur renvoyée par l'API.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Code d'erreur stable."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message lisible."
+          }
+        }
+      }
+order: 4000

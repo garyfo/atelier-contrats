@@ -1,0 +1,24 @@
+$kind: http-example
+name: Vente supprimée.
+request:
+  url: "{{baseUrl}}/ventes/:venteId"
+  method: DELETE
+  headers:
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: venteId
+      value: VTE-20261112-0042
+      disabled: false
+      description: Identifiant de la vente.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 204
+  statusText: No Content
+  body:
+    type: text
+    content: ""
+order: 1000

@@ -21,16 +21,18 @@ servers:
     description: Environnement de démonstration (fictif)
 tags:
   - name: Ventes
-    description: Création, consultation, mise à jour et suppression des ventes événementielles.
+    description: Création, consultation, mise à jour et suppression des ventes
+      événementielles.
 security:
   - bearerAuth: []
 paths:
   /ventes:
     post:
-      tags: [Ventes]
+      tags: [ Ventes ]
       operationId: creerVente
       summary: Créer une vente
-      description: Crée une vente événementielle pour une marque, au statut `brouillon`. Les lots sont rattachés à la vente dès sa création.
+      description: Crée une vente événementielle pour une marque, au statut
+        `brouillon`. Les lots sont rattachés à la vente dès sa création.
       requestBody:
         required: true
         content:
@@ -58,7 +60,7 @@ paths:
           type: string
           example: VTE-20261112-0042
     get:
-      tags: [Ventes]
+      tags: [ Ventes ]
       operationId: lireVente
       summary: Consulter une vente
       description: Renvoie une vente avec ses lots et son statut de mise en ligne.
@@ -74,10 +76,11 @@ paths:
         '404':
           $ref: '#/components/responses/VenteIntrouvable'
     put:
-      tags: [Ventes]
+      tags: [ Ventes ]
       operationId: mettreAJourVente
       summary: Mettre à jour une vente
-      description: Remplace les informations d'une vente. Passer le statut à `programmee` déclenche la publication de l'événement `vente.publiee`.
+      description: Remplace les informations d'une vente. Passer le statut à
+        `programmee` déclenche la publication de l'événement `vente.publiee`.
       requestBody:
         required: true
         content:
@@ -98,7 +101,7 @@ paths:
         '404':
           $ref: '#/components/responses/VenteIntrouvable'
     delete:
-      tags: [Ventes]
+      tags: [ Ventes ]
       operationId: supprimerVente
       summary: Supprimer une vente
       description: Supprime une vente qui n'est pas encore ouverte.
@@ -147,7 +150,7 @@ components:
     Lot:
       type: object
       description: Article proposé dans une vente.
-      required: [sku, libelle, prixVente, stock]
+      required: [ sku, libelle, prixVente, stock ]
       properties:
         sku:
           type: string
@@ -174,12 +177,20 @@ components:
     VenteCreation:
       type: object
       description: Données nécessaires pour créer une vente.
-      required: [marque, titre, dateOuverture, dateFermeture]
+      required:
+        - marque
+        - titre
+        - dateOuverture
+        - dateFermeture
       properties:
         marque:
           type: string
           description: Marque partenaire de la vente.
           example: Maison Lumière
+        codePromo:
+          type: string
+          description: Code promo réservé aux membres pendant la vente.
+          example: HIVER26
         titre:
           type: string
           description: Titre affiché de la vente.
@@ -187,23 +198,57 @@ components:
         univers:
           type: string
           description: Univers de la vente.
-          enum: [mode, maison, beaute, enfant, voyage]
+          enum:
+            - mode
+            - maison
+            - beaute
+            - enfant
+            - voyage
           example: mode
         dateOuverture:
           type: string
           format: date-time
           description: Ouverture de la vente (UTC).
-          example: '2026-11-12T07:00:00Z'
+          example: 2026-11-12T07:00:00Z
         dateFermeture:
           type: string
           format: date-time
           description: Fermeture de la vente (UTC).
-          example: '2026-11-17T22:00:00Z'
+          example: 2026-11-17T22:00:00Z
         lots:
           type: array
           description: Lots rattachés à la vente.
           items:
-            $ref: '#/components/schemas/Lot'
+            type: object
+            description: Article proposé dans une vente.
+            required:
+              - sku
+              - libelle
+              - prixVente
+              - stock
+            properties:
+              sku:
+                type: string
+                description: Référence de l'article.
+                example: ML-MANT-001
+              libelle:
+                type: string
+                description: Libellé affiché sur le site et les apps.
+                example: Manteau long en laine
+              prixPublic:
+                type: number
+                format: float
+                description: Prix public conseillé, en euros.
+                example: 289
+              prixVente:
+                type: number
+                format: float
+                description: Prix pendant la vente, en euros.
+                example: 119
+              stock:
+                type: integer
+                description: Quantité disponible pour la vente.
+                example: 240
     VenteMiseAJour:
       type: object
       description: Champs modifiables d'une vente.
@@ -226,7 +271,7 @@ components:
     StatutVente:
       type: string
       description: Statut de mise en ligne de la vente.
-      enum: [brouillon, programmee, en_ligne, terminee]
+      enum: [ brouillon, programmee, en_ligne, terminee ]
       example: programmee
     Vente:
       type: object
@@ -240,6 +285,10 @@ components:
           type: string
           description: Marque partenaire.
           example: Maison Lumière
+        codePromo:
+          type: string
+          description: Code promo réservé aux membres pendant la vente.
+          example: HIVER26
         titre:
           type: string
           description: Titre affiché.
@@ -249,32 +298,68 @@ components:
           description: Univers de la vente.
           example: mode
         statut:
-          $ref: '#/components/schemas/StatutVente'
+          type: string
+          description: Statut de mise en ligne de la vente.
+          enum:
+            - brouillon
+            - programmee
+            - en_ligne
+            - terminee
+          example: programmee
         dateOuverture:
           type: string
           format: date-time
           description: Ouverture de la vente (UTC).
-          example: '2026-11-12T07:00:00Z'
+          example: 2026-11-12T07:00:00Z
         dateFermeture:
           type: string
           format: date-time
           description: Fermeture de la vente (UTC).
-          example: '2026-11-17T22:00:00Z'
+          example: 2026-11-17T22:00:00Z
         lots:
           type: array
           description: Lots de la vente.
           items:
-            $ref: '#/components/schemas/Lot'
+            type: object
+            description: Article proposé dans une vente.
+            required:
+              - sku
+              - libelle
+              - prixVente
+              - stock
+            properties:
+              sku:
+                type: string
+                description: Référence de l'article.
+                example: ML-MANT-001
+              libelle:
+                type: string
+                description: Libellé affiché sur le site et les apps.
+                example: Manteau long en laine
+              prixPublic:
+                type: number
+                format: float
+                description: Prix public conseillé, en euros.
+                example: 289
+              prixVente:
+                type: number
+                format: float
+                description: Prix pendant la vente, en euros.
+                example: 119
+              stock:
+                type: integer
+                description: Quantité disponible pour la vente.
+                example: 240
         creeLe:
           type: string
           format: date-time
           description: Date de création.
-          example: '2026-11-05T13:05:00Z'
+          example: 2026-11-05T13:05:00Z
         misAJourLe:
           type: string
           format: date-time
           description: Date de dernière mise à jour.
-          example: '2026-11-05T13:20:00Z'
+          example: 2026-11-05T13:20:00Z
     Erreur:
       type: object
       description: Erreur renvoyée par l'API.

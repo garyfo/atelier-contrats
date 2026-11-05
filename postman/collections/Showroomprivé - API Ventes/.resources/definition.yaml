@@ -1,0 +1,25 @@
+$kind: collection
+description: |-
+  ![Showroomprivé](https://wsrv.nl/?url=https%3A%2F%2Fstatic.cedex.it.showroomprive.com%2Fv4%2F0%2F_img%2Flogo-srp.svg&output=png&h=200)
+
+  **Contrat de l'API Ventes de Showroomprivé.**
+
+  Une *vente* est une vente événementielle d'une marque : ses dates d'ouverture et de fermeture, ses lots et son statut de mise en ligne.
+  Ce contrat est la référence partagée entre l'équipe qui expose l'API (back-office) et les équipes qui la consomment (front web, apps iOS et Android, B2B Mirakl).
+
+  - Le contrat est rédigé et versionné dans **Spec Hub**, synchronisé avec GitHub.
+  - La collection est générée depuis ce contrat : elle reste alignée à chaque changement.
+  - Le **mock** sert les exemples de ce contrat : les équipes consommatrices codent sans attendre l'implémentation.
+  - La publication d'une vente émet un événement `vente.publiee` sur Azure Service Bus (voir le contrat AsyncAPI « Showroomprivé - Événements Ventes »).
+
+
+  Contact Support:
+   Name: Équipe Back-office Showroomprivé
+variables:
+  baseUrl: https://api.showroomprive.example/catalogue/v1
+auth:
+  - id: 8be6ad6c-e0a3-42da-a0e5-209577c12a91
+    type: bearer
+    name: bearer auth
+    credentials:
+      token: "{{bearerToken}}"

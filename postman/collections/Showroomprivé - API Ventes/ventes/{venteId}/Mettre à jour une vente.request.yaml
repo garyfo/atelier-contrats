@@ -1,0 +1,71 @@
+$kind: http-request
+description: Remplace les informations d'une vente. Passer le statut à `programmee` déclenche la publication de l'événement `vente.publiee`.
+url: "{{baseUrl}}/ventes/:venteId"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+pathVariables:
+  - key: venteId
+    value: VTE-20261112-0042
+    disabled: false
+    description: Identifiant de la vente.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "example": "VTE-20261112-0042"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: json
+  content: |-
+    {
+      "titre": "string",
+      "statut": "programmee",
+      "dateOuverture": "2026-11-12T07:00:00Z",
+      "dateFermeture": "2026-11-17T22:00:00Z"
+    }
+  $type: |-
+    {
+      "description": "Champs modifiables d'une vente.",
+      "type": "object",
+      "properties": {
+        "titre": {
+          "type": "string",
+          "description": "Titre affiché de la vente."
+        },
+        "statut": {
+          "type": "string",
+          "enum": [
+            "brouillon",
+            "programmee",
+            "en_ligne",
+            "terminee"
+          ],
+          "example": "programmee",
+          "description": "Statut de mise en ligne de la vente."
+        },
+        "dateOuverture": {
+          "type": "string",
+          "example": "2026-11-12T07:00:00Z",
+          "description": "Ouverture de la vente (UTC).",
+          "format": "date-time"
+        },
+        "dateFermeture": {
+          "type": "string",
+          "example": "2026-11-17T22:00:00Z",
+          "description": "Fermeture de la vente (UTC).",
+          "format": "date-time"
+        }
+      }
+    }
+settings: {}
+examples: ./.resources/Mettre à jour une vente.resources/examples
+order: 2000

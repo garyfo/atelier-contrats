@@ -1,0 +1,4 @@
+name: New Environment
+values:
+  - key: baseUrl
+    value: https://07586999-3420-4375-b518-deefe3a30cdd.mock.pstmn.io/catalogue/v1

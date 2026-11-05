@@ -1,0 +1,68 @@
+$kind: http-example
+name: Jeton absent ou invalide.
+request:
+  url: "{{baseUrl}}/ventes"
+  method: POST
+  headers:
+    - key: Content-Type
+      value: application/json
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  body:
+    type: json
+    content: |-
+      {
+        "marque": "Maison Lumière",
+        "titre": "Maison Lumière - Collection Hiver",
+        "dateOuverture": "2026-11-12T07:00:00Z",
+        "dateFermeture": "2026-11-17T22:00:00Z",
+        "codePromo": "HIVER26",
+        "univers": "mode",
+        "lots": [
+          {
+            "sku": "ML-MANT-001",
+            "libelle": "Manteau long en laine",
+            "prixVente": 119,
+            "stock": 240,
+            "prixPublic": 289
+          },
+          {
+            "sku": "ML-MANT-001",
+            "libelle": "Manteau long en laine",
+            "prixVente": 119,
+            "stock": 240,
+            "prixPublic": 289
+          }
+        ]
+      }
+response:
+  statusCode: 401
+  statusText: Unauthorized
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "code": "NON_AUTHENTIFIE",
+        "message": "Jeton d'accès absent ou expiré."
+      }
+    $type: |-
+      {
+        "description": "Erreur renvoyée par l'API.",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Code d'erreur stable."
+          },
+          "message": {
+            "type": "string",
+            "description": "Message lisible."
+          }
+        }
+      }
+order: 3000

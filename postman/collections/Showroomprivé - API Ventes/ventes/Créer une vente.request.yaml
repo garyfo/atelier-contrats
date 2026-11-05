@@ -1,0 +1,132 @@
+$kind: http-request
+description: Crée une vente événementielle pour une marque, au statut `brouillon`. Les lots sont rattachés à la vente dès sa création.
+url: "{{baseUrl}}/ventes"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "marque": "Maison Lumière",
+      "titre": "Maison Lumière - Collection Hiver",
+      "dateOuverture": "2026-11-12T07:00:00Z",
+      "dateFermeture": "2026-11-17T22:00:00Z",
+      "codePromo": "HIVER26",
+      "univers": "mode",
+      "lots": [
+        {
+          "sku": "ML-MANT-001",
+          "libelle": "Manteau long en laine",
+          "prixVente": 119,
+          "stock": 240,
+          "prixPublic": 289
+        },
+        {
+          "sku": "ML-MANT-001",
+          "libelle": "Manteau long en laine",
+          "prixVente": 119,
+          "stock": 240,
+          "prixPublic": 289
+        }
+      ]
+    }
+  $type: |-
+    {
+      "description": "Données nécessaires pour créer une vente.",
+      "type": "object",
+      "properties": {
+        "marque": {
+          "type": "string",
+          "example": "Maison Lumière",
+          "description": "Marque partenaire de la vente."
+        },
+        "codePromo": {
+          "type": "string",
+          "example": "HIVER26",
+          "description": "Code promo réservé aux membres pendant la vente."
+        },
+        "titre": {
+          "type": "string",
+          "example": "Maison Lumière - Collection Hiver",
+          "description": "Titre affiché de la vente."
+        },
+        "univers": {
+          "type": "string",
+          "enum": [
+            "mode",
+            "maison",
+            "beaute",
+            "enfant",
+            "voyage"
+          ],
+          "example": "mode",
+          "description": "Univers de la vente."
+        },
+        "dateOuverture": {
+          "type": "string",
+          "example": "2026-11-12T07:00:00Z",
+          "description": "Ouverture de la vente (UTC).",
+          "format": "date-time"
+        },
+        "dateFermeture": {
+          "type": "string",
+          "example": "2026-11-17T22:00:00Z",
+          "description": "Fermeture de la vente (UTC).",
+          "format": "date-time"
+        },
+        "lots": {
+          "type": "array",
+          "description": "Lots rattachés à la vente.",
+          "items": {
+            "description": "Article proposé dans une vente.",
+            "type": "object",
+            "properties": {
+              "sku": {
+                "type": "string",
+                "example": "ML-MANT-001",
+                "description": "Référence de l'article."
+              },
+              "libelle": {
+                "type": "string",
+                "example": "Manteau long en laine",
+                "description": "Libellé affiché sur le site et les apps."
+              },
+              "prixPublic": {
+                "type": "number",
+                "example": 289,
+                "description": "Prix public conseillé, en euros.",
+                "format": "float"
+              },
+              "prixVente": {
+                "type": "number",
+                "example": 119,
+                "description": "Prix pendant la vente, en euros.",
+                "format": "float"
+              },
+              "stock": {
+                "type": "integer",
+                "example": 240,
+                "description": "Quantité disponible pour la vente."
+              }
+            },
+            "required": [
+              "sku",
+              "libelle",
+              "prixVente",
+              "stock"
+            ]
+          }
+        }
+      },
+      "required": [
+        "marque",
+        "titre",
+        "dateOuverture",
+        "dateFermeture"
+      ]
+    }
+settings: {}
+examples: ./.resources/Créer une vente.resources/examples
+order: 1000

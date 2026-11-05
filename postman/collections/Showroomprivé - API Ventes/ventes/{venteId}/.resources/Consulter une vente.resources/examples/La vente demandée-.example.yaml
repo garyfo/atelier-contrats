@@ -1,0 +1,166 @@
+$kind: http-example
+name: La vente demandée.
+request:
+  url: "{{baseUrl}}/ventes/:venteId"
+  method: GET
+  headers:
+    - key: Accept
+      value: application/json
+    - key: Authorization
+      value: Bearer <token>
+      description: "Added as a part of security scheme: bearer"
+  pathVariables:
+    - key: venteId
+      value: VTE-20261112-0042
+      disabled: false
+      description: Identifiant de la vente.
+  body:
+    type: text
+    content: ""
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "VTE-20261112-0042",
+        "marque": "Maison Lumière",
+        "codePromo": "HIVER26",
+        "titre": "Maison Lumière - Collection Hiver",
+        "univers": "mode",
+        "statut": "programmee",
+        "dateOuverture": "2026-11-12T07:00:00Z",
+        "dateFermeture": "2026-11-17T22:00:00Z",
+        "lots": [
+          {
+            "sku": "ML-MANT-001",
+            "libelle": "Manteau long en laine",
+            "prixVente": 119,
+            "stock": 240,
+            "prixPublic": 289
+          },
+          {
+            "sku": "ML-MANT-001",
+            "libelle": "Manteau long en laine",
+            "prixVente": 119,
+            "stock": 240,
+            "prixPublic": 289
+          }
+        ],
+        "creeLe": "2026-11-05T13:05:00Z",
+        "misAJourLe": "2026-11-05T13:20:00Z"
+      }
+    $type: |-
+      {
+        "description": "Vente événementielle d'une marque.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "VTE-20261112-0042",
+            "description": "Identifiant de la vente."
+          },
+          "marque": {
+            "type": "string",
+            "example": "Maison Lumière",
+            "description": "Marque partenaire."
+          },
+          "codePromo": {
+            "type": "string",
+            "example": "HIVER26",
+            "description": "Code promo réservé aux membres pendant la vente."
+          },
+          "titre": {
+            "type": "string",
+            "example": "Maison Lumière - Collection Hiver",
+            "description": "Titre affiché."
+          },
+          "univers": {
+            "type": "string",
+            "example": "mode",
+            "description": "Univers de la vente."
+          },
+          "statut": {
+            "type": "string",
+            "enum": [
+              "brouillon",
+              "programmee",
+              "en_ligne",
+              "terminee"
+            ],
+            "example": "programmee",
+            "description": "Statut de mise en ligne de la vente."
+          },
+          "dateOuverture": {
+            "type": "string",
+            "example": "2026-11-12T07:00:00Z",
+            "description": "Ouverture de la vente (UTC).",
+            "format": "date-time"
+          },
+          "dateFermeture": {
+            "type": "string",
+            "example": "2026-11-17T22:00:00Z",
+            "description": "Fermeture de la vente (UTC).",
+            "format": "date-time"
+          },
+          "lots": {
+            "type": "array",
+            "description": "Lots de la vente.",
+            "items": {
+              "description": "Article proposé dans une vente.",
+              "type": "object",
+              "properties": {
+                "sku": {
+                  "type": "string",
+                  "example": "ML-MANT-001",
+                  "description": "Référence de l'article."
+                },
+                "libelle": {
+                  "type": "string",
+                  "example": "Manteau long en laine",
+                  "description": "Libellé affiché sur le site et les apps."
+                },
+                "prixPublic": {
+                  "type": "number",
+                  "example": 289,
+                  "description": "Prix public conseillé, en euros.",
+                  "format": "float"
+                },
+                "prixVente": {
+                  "type": "number",
+                  "example": 119,
+                  "description": "Prix pendant la vente, en euros.",
+                  "format": "float"
+                },
+                "stock": {
+                  "type": "integer",
+                  "example": 240,
+                  "description": "Quantité disponible pour la vente."
+                }
+              },
+              "required": [
+                "sku",
+                "libelle",
+                "prixVente",
+                "stock"
+              ]
+            }
+          },
+          "creeLe": {
+            "type": "string",
+            "example": "2026-11-05T13:05:00Z",
+            "description": "Date de création.",
+            "format": "date-time"
+          },
+          "misAJourLe": {
+            "type": "string",
+            "example": "2026-11-05T13:20:00Z",
+            "description": "Date de dernière mise à jour.",
+            "format": "date-time"
+          }
+        }
+      }
+order: 1000

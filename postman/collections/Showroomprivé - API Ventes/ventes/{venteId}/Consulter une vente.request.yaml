@@ -1,0 +1,30 @@
+$kind: http-request
+description: Renvoie une vente avec ses lots et son statut de mise en ligne.
+url: "{{baseUrl}}/ventes/:venteId"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: venteId
+    value: VTE-20261112-0042
+    disabled: false
+    description: Identifiant de la vente.
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "example": "VTE-20261112-0042"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+body:
+  type: text
+  content: ""
+settings: {}
+examples: ./.resources/Consulter une vente.resources/examples
+order: 1000
